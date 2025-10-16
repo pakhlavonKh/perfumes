@@ -75,6 +75,7 @@ const translations = {
     'nav.about': 'О нас',
     'nav.brands': 'Бренды',
     'nav.benefits': 'Преимущества',
+    'nav.catalog': 'Каталог',
     'nav.contact': 'Контакты',
     
     // Hero
@@ -135,6 +136,7 @@ const translations = {
     'nav.about': 'About',
     'nav.brands': 'Brands',
     'nav.benefits': 'Benefits',
+    'nav.catalog': 'Catalog',
     'nav.contact': 'Contact',
     
     // Hero

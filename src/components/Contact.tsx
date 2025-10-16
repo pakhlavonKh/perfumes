@@ -9,17 +9,17 @@ export const Contact = () => {
     {
       icon: Phone,
       label: t('contact.phone'),
-      value: '+998 90 123 45 67',
+      value: ' +998 (90) 352 59 59',
     },
     {
       icon: Mail,
       label: t('contact.email'),
-      value: 'info@luxuryperfume.com',
+      value: 'essenzaperfumes17@gmail.com',
     },
     {
       icon: MapPin,
       label: t('contact.address'),
-      value: 'Tashkent, Uzbekistan',
+      value: 'Ташкент, улица Заргарлик, 10А',
     },
   ];
 

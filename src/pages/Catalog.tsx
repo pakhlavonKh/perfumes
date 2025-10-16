@@ -3,32 +3,36 @@ import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import catalogData from '@/data/catalogData';
 
-const products = [
-  { name: 'Tom Ford Black Orchid', brand: 'Tom Ford', category: 'Luxury', image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop' },
-  { name: 'Chanel No. 5', brand: 'Chanel', category: 'Classic', image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop' },
-  { name: 'Dior Sauvage', brand: 'Dior', category: 'Men', image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=400&fit=crop' },
-  { name: 'Versace Eros', brand: 'Versace', category: 'Men', image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=400&h=400&fit=crop' },
-  { name: 'Gucci Guilty', brand: 'Gucci', category: 'Women', image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59c75?w=400&h=400&fit=crop' },
-  { name: 'YSL Black Opium', brand: 'YSL', category: 'Women', image: 'https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop' },
-  { name: 'Prada Luna Rossa', brand: 'Prada', category: 'Men', image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop' },
-  { name: 'Armani Code', brand: 'Giorgio Armani', category: 'Men', image: 'https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=400&fit=crop' },
-  { name: 'Burberry Brit', brand: 'Burberry', category: 'Women', image: 'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=400&h=400&fit=crop' },
-  { name: 'Hermès Terre', brand: 'Hermès', category: 'Luxury', image: 'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop' },
-  { name: 'Dolce & Gabbana Light Blue', brand: 'Dolce & Gabbana', category: 'Women', image: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop' },
-  { name: 'Valentino Uomo', brand: 'Valentino', category: 'Men', image: 'https://images.unsplash.com/photo-1595425959632-34f972d2b13f?w=400&h=400&fit=crop' },
-];
+const ITEMS_PER_PAGE = 20;
 
 const CatalogContent = () => {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredProducts = products.filter(product =>
+  // Filter the products based on search
+  const filteredProducts = catalogData.filter(product =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    product.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // Handle pagination change
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,6 +40,7 @@ const CatalogContent = () => {
       
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
+          {/* Title + Search */}
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 text-foreground">
               {t('catalog.title')}
@@ -47,23 +52,28 @@ const CatalogContent = () => {
                 type="text"
                 placeholder={t('catalog.search')}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1); // reset pagination when searching
+                }}
                 className="pl-12 h-12 bg-card border-border"
               />
             </div>
           </div>
 
+          {/* Product Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product, index) => (
+            {paginatedProducts.map((product, index) => (
               <div
                 key={index}
                 className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-all duration-300 group cursor-pointer shadow-elegant hover:shadow-glow"
               >
-                <div className="aspect-square overflow-hidden">
+                <div className="aspect-square overflow-hidden flex justify-center items-center">
                   <img
-                    src={product.image}
+                    src={product.img}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="h-auto w-[65%] object-cover mx-auto group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
                   />
                 </div>
                 <div className="p-6">
@@ -75,7 +85,7 @@ const CatalogContent = () => {
                   </h3>
                   <div className="flex items-center justify-between">
                     <span className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">
-                      {product.category}
+                      {product.description || '—'}
                     </span>
                     <span className="text-xs text-muted-foreground">
                       {t('catalog.min.order')}
@@ -86,9 +96,28 @@ const CatalogContent = () => {
             ))}
           </div>
 
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-lg text-muted-foreground">No products found</p>
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-4 mt-12">
+              <Button
+                variant="outline"
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                ← {t('catalog.prev') || 'Previous'}
+              </Button>
+
+              <span className="text-sm text-muted-foreground">
+                {currentPage} / {totalPages}
+              </span>
+
+              <Button
+                variant="outline"
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                {t('catalog.next') || 'Next'} →
+              </Button>
             </div>
           )}
         </div>
@@ -99,12 +128,10 @@ const CatalogContent = () => {
   );
 };
 
-const Catalog = () => {
-  return (
-    <LanguageProvider>
-      <CatalogContent />
-    </LanguageProvider>
-  );
-};
+const Catalog = () => (
+  <LanguageProvider>
+    <CatalogContent />
+  </LanguageProvider>
+);
 
 export default Catalog;

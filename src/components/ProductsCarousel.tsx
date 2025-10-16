@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from './ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -11,20 +12,34 @@ import {
 } from "@/components/ui/carousel";
 
 const products = [
-  { name: 'Tom Ford Black Orchid', brand: 'Tom Ford', image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop' },
-  { name: 'Chanel No. 5', brand: 'Chanel', image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop' },
-  { name: 'Dior Sauvage', brand: 'Dior', image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&h=400&fit=crop' },
-  { name: 'Versace Eros', brand: 'Versace', image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=400&h=400&fit=crop' },
-  { name: 'Gucci Guilty', brand: 'Gucci', image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59c75?w=400&h=400&fit=crop' },
-  { name: 'YSL Black Opium', brand: 'YSL', image: 'https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop' },
+  { brand:"Chanel", name: "Bleu de Chanel", image: "../assets/cellImage_0_2.png" },
+  { brand:"Chanel", name: "Egoiste Platinum", image: "../assets/cellImage_0_3.png" },
+  { brand:"Tom Ford", name: "Cherry Smoke", image: "../assets/cellImage_0_4.png" },
+  { brand:"Tom Ford", name: "Oud Wood", image: "../assets/cellImage_0_5.png" },
+  { brand:"Tom Ford", name: "Black Orchid", image: "../assets/cellImage_0_6.png" },
+  { brand:"Tom Ford", name: "Lost Cherry", image: "../assets/cellImage_0_7.png" },
+  { brand:"Tom Ford", name: "Tobacco Vanille", image: "../assets/cellImage_0_8.png" },
+  { brand:"Tom Ford", name: "Ombre Leather", image: "../assets/cellImage_0_9.png" },
 ];
 
 export const ProductsCarousel = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const carouselRef = useRef(null);
+
+  // 🔁 Auto-play effect (every 3.5 seconds)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const nextButton = carouselRef.current.querySelector('[data-carousel-next]');
+        nextButton?.click();
+      }
+    }, 5000); // change every 3.5s
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section className="py-24 bg-background">
+    <section className="relative py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-12">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
@@ -40,42 +55,53 @@ export const ProductsCarousel = () => {
           </Button>
         </div>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-4">
-            {products.map((product, index) => (
-              <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <div className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-all duration-300 group cursor-pointer shadow-elegant hover:shadow-glow">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">
-                      {product.brand}
+        {/* 🟢 Carousel Wrapper */}
+        <div className="relative" ref={carouselRef}>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {products.map((product, index) => (
+                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <div className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-all duration-300 group cursor-pointer shadow-elegant hover:shadow-glow">
+                    <div className="aspect-square overflow-hidden flex justify-center items-center">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="max-w-[85%] max-h-[85%] object-contain group-hover:scale-110 transition-transform duration-300 mx-auto"
+                      />
                     </div>
-                    <h3 className="font-serif text-xl font-semibold text-foreground mb-4">
-                      {product.name}
-                    </h3>
-                    <div className="text-xs text-muted-foreground">
-                      {t('catalog.min.order')}
+                    <div className="p-6">
+                      <div className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">
+                        {product.brand}
+                      </div>
+                      <h3 className="font-serif text-xl font-semibold text-foreground mb-4">
+                        {product.name}
+                      </h3>
+                      <div className="text-xs text-muted-foreground">
+                        {t('catalog.min.order')}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-0" />
-          <CarouselNext className="right-0" />
-        </Carousel>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* 🠔🠖 Arrows moved outside */}
+            <CarouselPrevious
+              data-carousel-prev
+              className="absolute -left-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md"
+            />
+            <CarouselNext
+              data-carousel-next
+              className="absolute -right-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md"
+            />
+          </Carousel>
+        </div>
       </div>
     </section>
   );

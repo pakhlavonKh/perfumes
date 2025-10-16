@@ -6,9 +6,9 @@ export const Header = () => {
   const { language, setLanguage, t } = useLanguage();
 
   const languages = [
-    { code: 'uz' as const, label: 'O\'zbekcha' },
-    { code: 'ru' as const, label: 'Русский' },
-    { code: 'en' as const, label: 'English' },
+    { code: 'uz' as const, label: 'O\'z' },
+    { code: 'ru' as const, label: 'Ру' },
+    { code: 'en' as const, label: 'En' },
   ];
 
   const scrollToSection = (id: string) => {
@@ -20,8 +20,8 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="font-serif text-2xl font-bold bg-gradient-gold bg-clip-text text-transparent">
-            LUXURY
+          <div className="font-serif text-2xl font-bold bg-gradient-gold bg-clip-text text-transparent" >
+                <button onClick={() => window.location.href = '/'}>ESSENZA</button>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">

@@ -27,7 +27,7 @@ export const ProductsCarousel = () => {
   const navigate = useNavigate();
   const carouselRef = useRef(null);
 
-  // 🔁 Auto-play effect (every 3.5 seconds)
+  // 🔁 Auto-play effect (every 5 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       if (carouselRef.current) {
@@ -94,12 +94,13 @@ export const ProductsCarousel = () => {
             {/* 🠔🠖 Arrows moved outside */}
             <CarouselPrevious
               data-carousel-prev
-              className="absolute -left-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md"
+              className="absolute -left-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md hidden md:block"
             />
             <CarouselNext
               data-carousel-next
-              className="absolute -right-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md"
+              className="absolute -right-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md hidden md:block"
             />
+
           </Carousel>
         </div>
       </div>

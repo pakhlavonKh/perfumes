@@ -74,11 +74,11 @@ export const Brands = () => {
             {/* Arrows outside */}
             <CarouselPrevious
               data-carousel-prev
-              className="absolute -left-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md"
+              className="absolute -left-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md hidden md:block"
             />
             <CarouselNext
               data-carousel-next
-              className="absolute -right-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md"
+              className="absolute -right-8 top-1/2 -translate-y-1/2 z-10 bg-card/70 backdrop-blur-sm hover:bg-card shadow-md hidden md:block"
             />
           </Carousel>
         </div>

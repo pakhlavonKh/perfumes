@@ -19,7 +19,7 @@ export const Footer = () => {
           </div>
 
           <div className="text-sm text-muted-foreground">
-            © {currentYear} Luxury Perfume Distribution. {t('footer.rights')}
+            © {currentYear} Essenza Perfume Distribution. {t('footer.rights')}
           </div>
         </div>
       </div>

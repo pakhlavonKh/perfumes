@@ -28,10 +28,10 @@ export const Benefits = () => {
   ];
 
   return (
-    <section id="benefits" className="py-24 bg-gradient-luxury">
+    <section id="benefits" className="py-24 bg-gradient-gold">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-background">
             {t('benefits.title')}
           </h2>
         </div>

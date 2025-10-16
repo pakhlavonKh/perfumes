@@ -10,13 +10,13 @@ export const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 bg-gradient-luxury">
+    <section id="about" className="py-24 bg-gradient-gold">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-background">
             {t('about.title')}
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-muted-background">
             {t('about.description')}
           </p>
         </div>
@@ -27,7 +27,7 @@ export const About = () => {
               key={index}
               className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 text-center shadow-elegant hover:shadow-glow transition-all duration-300"
             >
-              <div className="font-serif text-4xl md:text-5xl font-bold bg-gradient-gold bg-clip-text text-transparent mb-2">
+              <div className="font-serif text-4xl md:text-5xl font-bold bg-gradient-gold bg-clip-text text-background mb-2">
                 {stat.value}
               </div>
               <div className="text-sm uppercase tracking-wider text-muted-foreground">

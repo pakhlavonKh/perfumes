@@ -55,12 +55,6 @@ export const Contact = () => {
             ))}
           </div>
 
-          <div className="text-center">
-            <Button size="lg" className="shadow-glow">
-              <Mail className="w-4 h-4 mr-2" />
-              {t('contact.cta')}
-            </Button>
-          </div>
         </div>
       </div>
     </section>

@@ -5,20 +5,20 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border py-8">
+    <footer className="bg-card border-t border-border py-8 bg-gradient-gold">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-serif text-2xl font-bold bg-gradient-gold bg-clip-text text-transparent">
+          <div className="font-serif text-2xl font-bold bg-gradient-luxury bg-clip-text text-transparent">
             ESSENZA
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          {/* <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <span className="px-3 py-1 bg-secondary/20 rounded-full text-xs font-medium">
               {t('footer.wholesale')}
             </span>
-          </div>
+          </div> */}
 
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-background">
             © {currentYear} Essenza Perfume Distribution. {t('footer.rights')}
           </div>
         </div>

@@ -34,12 +34,12 @@ export const ProductsCarousel = () => {
         const nextButton = carouselRef.current.querySelector('[data-carousel-next]');
         nextButton?.click();
       }
-    }, 5000); // change every 3.5s
+    }, 5000); 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative py-24 bg-background">
+    <section className="relative py-24 bg-background" id="products">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-12">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">

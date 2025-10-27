@@ -42,14 +42,14 @@ export const Brands = () => {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto mb-16 relative rounded-2xl overflow-hidden shadow-elegant">
+        {/* <div className="max-w-5xl mx-auto mb-16 relative rounded-2xl overflow-hidden shadow-elegant">
           <img
             src={brandsImage}
             alt="Luxury perfume brands"
             className="w-full h-96 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-hero" />
-        </div>
+        </div> */}
 
         <div className="relative" ref={carouselRef}>
           <Carousel

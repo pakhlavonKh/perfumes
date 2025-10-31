@@ -104,7 +104,7 @@ const CatalogContent = () => {
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
-                ← {t('catalog.prev') || 'Previous'}
+                ← 
               </Button>
 
               <span className="text-sm text-muted-foreground">
@@ -116,7 +116,7 @@ const CatalogContent = () => {
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
               >
-                {t('catalog.next') || 'Next'} →
+                 →
               </Button>
             </div>
           )}
